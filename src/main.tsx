@@ -6,7 +6,7 @@ class App extends React.Component {
     render(): JSX.Element {
         return (
             <div>
-                <h1>Hello React!</h1>
+                <h1>Hello React</h1>
                 <SubComponent name="My Counter for TypeScript" count="8" />
             </div>
         );
