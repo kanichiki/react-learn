@@ -1,5 +1,6 @@
 import * as React from 'react';
-import Button from '@material-ui/core/Button';
+import { } from '@material-ui/styles';
+import { makeStyles, createStyles, Button, CircularProgress, Card, CardContent, Box, Grid, Container, Theme } from '@material-ui/core';
 
 // Propsの型定義
 interface IProps {
@@ -11,33 +12,40 @@ interface IState {
     count: number;
 }
 
-export class SubComponent extends React.Component<IProps, IState> {
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: Number(this.props.count),
-        };
-        this.handleClick = this.handleClick.bind(this);
-    }
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            padding: theme.spacing(2)
+        },
+        title: {
+            borderBottom: `2px solid ${theme.palette.primary.main}`
+        }
+    })
 
-    handleClick(): void {
+);
+
+export const SubComponent = (props: IProps): JSX.Element => {
+    const classes = useStyles();
+    const [count, setCount] = React.useState(0);
+
+    const handleClick = (): void => {
         console.log('クリックされました');
 
-        this.setState({
-            count: this.state.count + 2,
-        });
+        setCount(count + 1);
     }
 
-    render(): JSX.Element {
+    return (
+        <div className={classes.root}>
+            <h2>{props.name}</h2>
+            <div>{count}</div>
+            <Container>
+                <Grid>
+                    <Button variant="contained" color="secondary" onClick={handleClick}>
+                        Add +1
+                    </Button>
+                </Grid>
+            </Container>
+        </div>
+    );
 
-        return (
-            <div>
-                <h2>{this.props.name}</h2>
-                <div>{this.state.count}</div>
-                <Button variant="contained" color="primary" onClick={this.handleClick}>
-                    Add +1
-                </Button>
-            </div>
-        );
-    }
 }
